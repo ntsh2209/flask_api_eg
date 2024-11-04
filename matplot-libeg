@@ -1,0 +1,34 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample DataFrame
+data = {
+    'cusip': ['123456', '123456', '123456', '654321', '654321'],
+    'invQty': [100, 150, 120, 80, 70],
+    'loanQty': [50, 55, 60, 40, 35],
+    'date': ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-01', '2024-01-02']
+}
+
+df = pd.DataFrame(data)
+df['date'] = pd.to_datetime(df['date'])  # Ensure the date column is in datetime format
+
+# Step 1: Filter for a Specific `cusip`
+cusip_to_plot = '123456'  # Replace with the desired CUSIP
+filtered_df = df[df['cusip'] == cusip_to_plot]
+
+# Step 2: Plot both invQty and loanQty on the same time series plot
+plt.figure(figsize=(10, 6))
+
+# Plotting invQty and loanQty
+plt.plot(filtered_df['date'], filtered_df['invQty'], label='invQty', marker='o', color='b')
+plt.plot(filtered_df['date'], filtered_df['loanQty'], label='loanQty', marker='o', color='g')
+
+# Adding labels, title, and legend
+plt.xlabel('Date')
+plt.ylabel('Quantity')
+plt.title(f'Time Series of invQty and loanQty for CUSIP {cusip_to_plot}')
+plt.legend()
+plt.grid(True)
+
+# Show plot
+plt.show()
